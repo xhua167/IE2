@@ -1,0 +1,197 @@
+{% extends "layout.html" %}
+{% block content %}
+    <p id="id_" style="display: none">{{ data['id_'] }}</p>
+    <p id="type" style="display: none">{{ data['type'] }}</p>
+    {% if servicename != 'hotlines' %}
+        <div class="row" style="margin-top: 50px">
+            <div class="col-sm-7 col-md-7 col-lg-7">
+                <ul class="list-group list-group-flush">
+                    {% if data['Address'] != 'Unknown' %}
+                        <li class="list-group-item" id="description"><b>{{ data['Name'] }} ({{ data['Type'] }})</b></li>
+                        <li class="list-group-item">Address: {{ data['Address'] }},{{data['Suburb']}}</li>
+                        <li class="list-group-item">Phone: {{ data['Phone'] }}</li>
+                        <li class="list-group-item">Eamil: {{ data['Email'] }}</li>
+                        <li class="list-group-item" id="longitude" style="display: none">{{ data['Longitude'] }}</li>
+                        <li class="list-group-item" id="latitude" style="display: none">{{ data['Latitude'] }}</li>
+                        <li class="list-group-item">Website: <a href="https://{{ data['Website'] }}">
+                            {{ data['Website'] }}</a></li>
+                        <li class="list-group-item">Rating: {{ data['meanRating'] }} <button type="button" class="btn btn-info" onclick="myFunction1()">Rating</button></li>
+                        <li class="list-group-item" id="rating" style="display: none">
+                            <div class="container" >
+                                <header class='header text-center'>
+                                    <p>Do you like this service</p>
+                                </header>
+                                <section class='rating-widget'>
+                                    <div class='rating-stars text-center'>
+                                        <ul id='stars'>
+                                            <li class='star' title='Poor' data-value='1'>
+                                                <i class='fa fa-star fa-fw'></i>
+                                            </li>
+                                            <li class='star' title='Fair' data-value='2'>
+                                                <i class='fa fa-star fa-fw'></i>
+                                            </li>
+                                            <li class='star' title='Good' data-value='3'>
+                                                <i class='fa fa-star fa-fw'></i>
+                                            </li>
+                                            <li class='star' title='Excellent' data-value='4'>
+                                                <i class='fa fa-star fa-fw'></i>
+                                            </li>
+                                            <li class='star' title='WOW!!!' data-value='5'>
+                                                <i class='fa fa-star fa-fw'></i>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class='success-box' style="text-align: center; display: none" >
+                                        <div class='text-message'></div>
+                                        <form method="POST" action="">
+                                            {{ form.hidden_tag() }}
+                                            <fieldset class="form-group">
+                                                <div class="form-group" style="display: none">
+                                                    {{ form.rating(class="form-control form-control-lg", id="myRating") }}
+                                                </div>
+                                            </fieldset>
+                                            <div class="form-group">
+                                                {{ form.submit(class="btn btn-outline-info") }}
+                                            </div>
+                                        </form>
+                                    </div>
+                                </section>
+                            </div>
+                        </li>
+                        {% if data['Opening Hours'] != {}  %}
+                            <li class="list-group-item">Opening Hours: <b>{{ today }}</b> {{ data['Opening Hours'][today] }}
+                                <button type="button" class="btn btn-info" onclick="myFunction()">Show more</button></li>
+                            <li class="list-group-item" id="openingHours" style="display: none">
+                                <div class="container">
+                                    {% for key, value in data['Opening Hours'].items() %}
+                                        <p>{{ key }}: {{ value }}</p>
+                                    {% endfor %}
+                                </div>
+                            </li>
+                        {% else %}
+                            <li class="list-group-item">Opening Hours: Please check the website</li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+            </div>
+
+            <div class="col-sm-5 col-md-5 col-lg-5">
+                <div id="map" style="height:500px"></div>
+                <br />
+            </div>
+        </div>
+
+    {% else %}
+        <div class="container">
+            <div class="row" style="margin-top: 50px">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" id="description"><b>{{ data['Name'] }}</b></li>
+                    <li class="list-group-item">Description: {{ data['What'] }}</li>
+                    <li class="list-group-item">Phone: {{ data['Phone'] }}</li>
+                    <li class="list-group-item">Email: {{ data['Email'] }}</li>
+                    <li class="list-group-item">Website: <a href="https://{{ data['Website'] }}">{{ data['Website'] }}</a></li>
+                    <li class="list-group-item">Rating: {{ data['meanRating'] }} <button type="button" class="btn btn-info" onclick="myFunction1()">Rating</button></li>
+                    <li class="list-group-item" id="rating" style="display: none">
+                        <div class="container" >
+                            <header class='header text-center'>
+                                <p>Do you like this service</p>
+                            </header>
+                            <section class='rating-widget'>
+                                <div class='rating-stars text-center'>
+                                    <ul id='stars'>
+                                        <li class='star' title='Poor' data-value='1'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Fair' data-value='2'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Good' data-value='3'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Excellent' data-value='4'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='WOW!!!' data-value='5'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class='success-box' style="text-align: center; display: none" >
+                                    <div class='text-message'></div>
+                                        <form method="POST" action="">
+                                            {{ form.hidden_tag() }}
+                                            <fieldset class="form-group">
+                                                <div class="form-group" style="display: none">
+                                                    {{ form.rating(class="form-control form-control-lg", id="myRating") }}
+                                                </div>
+                                            </fieldset>
+                                            <div class="form-group">
+                                                {{ form.submit(class="btn btn-outline-info") }}
+                                            </div>
+                                        </form>
+                                </div>
+                            </section>
+                        </div>
+                    </li>
+                    {% if data['Opening Hours'] != {}  %}
+                        <li class="list-group-item">Opening Hours: <b>{{ today }}</b> {{ data['Opening Hours'][today] }}
+                            <button type="button" class="btn btn-info" onclick="myFunction()">Show more</button></li>
+                        <li class="list-group-item" id="openingHours" style="display: none">
+                            <div class="container">
+                                {% for key, value in data['Opening Hours'].items() %}
+                                    <p>{{ key }}: {{ value }}</p>
+                                {% endfor %}
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="list-group-item">Opening Hours: Please check the website</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+
+{#    <div id='map' style='width: 400px; height: 300px;'></div>#}
+{#<style>#}
+{##geocoder-container > div {#}
+{#    min-width:50%;#}
+{#    margin-left:25%;#}
+{#}#}
+{#</style>#}
+
+    <script>
+        function myFunction() {
+          var x = document.getElementById("openingHours");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }}
+
+        function myFunction1() {
+          var x = document.getElementById("rating");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }}
+    </script>
+{% endblock content %}
+
+{#<li class="list-group-item">Opening Hours: {{ data['Opening Hours'] }}</li>#}
+{#function getWeekday() {#}
+{#            var d = new Date();#}
+{#            var weekday = new Array(7);#}
+{#            weekday[0] = "Sunday";#}
+{#            weekday[1] = "Monday";#}
+{#            weekday[2] = "Tuesday";#}
+{#            weekday[3] = "Wednesday";#}
+{#            weekday[4] = "Thursday";#}
+{#            weekday[5] = "Friday";#}
+{#            weekday[6] = "Saturday";#}
+{##}
+{#            var n = weekday[d.getDay()];#}
+{#            return n;#}
+{#        }#}
+{#          document.getElementById("weekday").innerHTML = getWeekday();#}
+{#        document.getElementById("today").innerHTML = getWeekday();#}

@@ -1,0 +1,187 @@
+{% extends "layout.html" %}
+{% block head %}
+{% endblock head %}
+{% block content %}
+    	<!-- Start top-section Area -->
+	<section class="banner-area relative"
+             style="background-image: url({{ url_for('static', filename='img/homee.jpg')}})">
+		<div class="overlay overlay-bg"></div>
+		<div class="container">
+			<div class="row justify-content-between align-items-center text-center banner-content">
+				<div class="col-lg-12">
+					<h1 class="text-white">Experiencing financial abuse?</h1>
+					<h3 class="text-white">Do you need help?</h3>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End top-section Area -->
+
+	<!-- Start features Area -->
+    <div class="container" style="padding-top:20px; margin-left: 10%">
+        <form class="form-inline my-2 my-lg-0" method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <div class="form-group" style="padding-right: 10px">
+                    {% if form.search.errors %}
+                        {{ form.search(class="form-control form-control-sm is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.search.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.search(class="form-control form-control-sm", placeholder="Search for services", pattern="[a-zA-Z0-9\s]+") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                    {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+	<section class="features-area section-gap-top" id="news">
+		<div class="container">
+			<div class="row feature_inner">
+				<div class="col-lg-2 col-md-6" style="margin-top: 40px">
+					<div class="feature-item">
+                        <span class="flaticon-dish"></span>
+                        <a href="{{ url_for('serviceDisplay', service_name='accommodation') }}">
+                            <h4 style="margin-top: 35px">Accommodation and Food</h4>
+                        </a>
+						<p>Safe accommodation service and cheap food are provided.</p>
+					</div>
+				</div>
+				<div class="col-lg-2 col-md-6" style="margin-top: 40px">
+					<div class="feature-item">
+						<span class="flaticon-tshirt"></span>
+                        <a href="{{ url_for('serviceDisplay', service_name='essential') }}">
+						    <h4 style="margin-top: 40px">Essential Items</h4>
+                        </a>
+						<p>Cheap essential items such as clothes are provided.</p>
+					</div>
+				</div>
+				<div class="col-lg-2 col-md-6" style="margin-top: 40px">
+					<div class="feature-item">
+						<span class="flaticon-auction"></span>
+                        <a href="{{ url_for('serviceDisplay', service_name='legal') }}">
+						    <h4 style="margin-top: 40px">Legal Advice</h4>
+                        </a>
+						<p>Practical legal assistance for dealing homeless.</p>
+					</div>
+				</div>
+				<div class="col-lg-2 col-md-6" style="margin-top: 40px">
+					<div class="feature-item">
+						<span class="flaticon-hospital"></span>
+                        <a href="{{ url_for('serviceDisplay', service_name='health') }}">
+						    <h4 style="margin-top: 40px">Health Services</h4>
+                        </a>
+						<p>Health service and assistance are provided. </p>
+					</div>
+				</div>
+                <div class="col-lg-2 col-md-6">
+					<div class="feature-item">
+						<span class="fi flaticon-smartphone"></span>
+                        <a href="{{ url_for('serviceDisplay', service_name='hotlines') }}">
+						    <h4 style="margin-top: 35px">Hotlines</h4>
+                        </a>
+						<p>Online services which provide free and confidential support.</p>
+					</div>
+				</div>
+                <div class="col-lg-2 col-md-6" style="margin-top: 40px">
+					<div class="feature-item">
+						<span class="flaticon-clipboards"></span>
+                        <a href="{{ url_for('serviceDisplay', service_name='others') }}">
+						    <h4 style="margin-top: 40px">Other Services</h4>
+                        </a>
+						<p>Other services such as alcoholics help.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End features Area -->
+{% endblock content %}
+
+{#    <div class="slider-item overlay" data-stellar-background-ratio="0.5"#}
+{#        style="background-image: url({{ url_for('static', filename='img/homee.jpg')}})">#}
+{#        <div class="container">#}
+{#          <div class="row slider-text align-items-center justify-content-center">#}
+{#            <div class="col-lg-12 text-center col-sm-12">#}
+{#              <h1 class="mb-4" data-aos="fade-up" data-aos-delay="100" style="color: white">Experiencing financial abuse?</h1>#}
+{#                <h3 class="mb-4" data-aos="fade-up" data-aos-delay="100" style="color: white">Do you need help?</h3>#}
+{#              <a href="#services" class="btn btn-info">Available Services</a>#}
+{#            </div>#}
+{#          </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <div id="services">#}
+{#        <div class="container" style="padding-top: 60px">#}
+{#        </div>#}
+{#        <div class="section portfolio-section">#}
+{#        <div class="container">#}
+{#          <div class="row mb-5 no-gutters">#}
+{#            <div class="col-sm-4 col-md-4 col-lg-4" data-aos="fade" data-aos-delay="100">#}
+{#              <a href="{{ url_for('serviceDisplay', service_name='accommodation') }}" class="work-thumb">#}
+{#                <div class="work-text">#}
+{#                  <h2>Accommodation and Cheap Food</h2>#}
+{#                </div>#}
+{#                <img src="{{ url_for('static', filename='img/food.jpg') }}" alt="Image" class="img-fluid">#}
+{#              </a>#}
+{#            </div>#}
+{##}
+{#            <div class="col-sm-4 col-md-4 col-lg-4" data-aos="fade" data-aos-delay="200">#}
+{#              <a href="{{ url_for('serviceDisplay', service_name='essential') }}" class="work-thumb">#}
+{#                <div class="work-text">#}
+{#                  <h2>Essencial Items</h2>#}
+{#                </div>#}
+{#                <img src="{{ url_for('static', filename='img/es.jpg') }}" alt="Image" class="img-fluid">#}
+{#              </a>#}
+{#            </div>#}
+{##}
+{#            <div class="col-sm-4 col-md-4 col-lg-4" data-aos="fade" data-aos-delay="300">#}
+{#              <a href="{{ url_for('serviceDisplay', service_name='legal') }}" class="work-thumb">#}
+{#                <div class="work-text">#}
+{#                  <h2>Legal Advice</h2>#}
+{#                </div>#}
+{#                <img src="{{ url_for('static', filename='img/advice.jpg') }}" alt="Image" class="img-fluid">#}
+{#              </a>#}
+{#            </div>#}
+{##}
+{#            <div class="col-sm-4 col-md-4 col-lg-4" data-aos="fade" data-aos-delay="400">#}
+{#              <a href="{{ url_for('serviceDisplay', service_name='health') }}" class="work-thumb">#}
+{#                <div class="work-text">#}
+{#                  <h2>Health Assistance</h2>#}
+{#                </div>#}
+{#                <img src="{{ url_for('static', filename='img/health.jpg') }}" alt="Image" class="img-fluid">#}
+{#              </a>#}
+{#            </div>#}
+{##}
+{#            <div class="col-sm-4 col-md-4 col-lg-4" data-aos="fade" data-aos-delay="100">#}
+{#              <a href="{{ url_for('serviceDisplay', service_name='hotlines') }}" class="work-thumb">#}
+{#                <div class="work-text">#}
+{#                  <h2>Hotlines</h2>#}
+{#                </div>#}
+{#                <img src="{{ url_for('static', filename='img/hotlines.jpg') }}" alt="Image" class="img-fluid">#}
+{#              </a>#}
+{#            </div>#}
+{##}
+{#             <div class="col-sm-4 col-md-4 col-lg-4" data-aos="fade" data-aos-delay="200">#}
+{#              <a href="{{ url_for('serviceDisplay', service_name='others') }}" class="work-thumb">#}
+{#                <div class="work-text">#}
+{#                  <h2>Other services</h2>#}
+{#                </div>#}
+{#                <img src="{{ url_for('static', filename='img/others.jpg') }}" alt="Image" class="img-fluid">#}
+{#              </a>#}
+{#            </div>#}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+{#    </div>#}
+
+{#    <form class="form-inline my-2 my-lg-0">#}
+{#      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">#}
+{#      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>#}
+{#    </form>#}
+

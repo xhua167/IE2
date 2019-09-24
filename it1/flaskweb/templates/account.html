@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="container" style="margin-top:50px">
+        <h1>Hi, {{ current_user.username }}</h1>
+        <h2 style="margin-bottom: 20px">Your favorite services: </h2>
+        {% if data == [] %}
+            <p>There is no favorite yet. Let's browse the website and find your favorite.</p>
+        {% else %}
+            {% for i in data %}
+                {% if i['What'] != 'Unknown' %}
+                <div class="row">
+                    <div class="col">
+                        <p><b>{{ i['Name'] }} ({{ i['Type'] }})</b></p>
+                        <p><b>Description</b>: {{ i['What'] }}</p>
+                        <a href="{{ url_for('detailedInfo', service_id=i['id_'], servicename=i['Type']) }}" class="btn btn-info">More</a>
+                    </div>
+                </div>
+
+                <hr>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock content %}

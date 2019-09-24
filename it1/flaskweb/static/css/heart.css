@@ -1,0 +1,10 @@
+/*# the css for the heart button*/
+.fa-heart-o {
+  color: red;
+  cursor: pointer;
+}
+
+.fa-heart {
+  color: red;
+  cursor: pointer;
+}
