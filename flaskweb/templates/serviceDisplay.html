@@ -6,8 +6,8 @@
             {% if i['What'] != 'Unknown' %}
             <div class="row" style="margin-top: 30px">
                 <div class="col">
-                    <p><b>{{ i['Name'] }} ({{ i['type'] }})</b>
-                        <a href="{{ url_for('addFavorite', service_id=i['id_'], service_name=i['type']) }}">
+                    <p><b>{{ i['Name'] }} ({{ i['Type'] }})</b>
+                        <a href="{{ url_for('addFavorite', service_id=i['id_'], service_name=i['Type']) }}">
                             <span class="heart"><i class="fa fa-heart-o" aria-hidden="true" ></i></span>
                         </a></p>
 {#                        <a href="{{ url_for('addFavorite', service_id=i['id_'], service_name=i['type']) }}" class="btn btn-info">Like</a></p>#}

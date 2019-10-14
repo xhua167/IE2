@@ -3,11 +3,11 @@ import datetime
 
 def meanRating(services):
     for j in services:
-        length = len(j['rating'])
+        length = len(j['Rating'])
         if length == 0:
             j['meanRating'] = 0
         else:
-            sum1 = sum(j['rating'])
+            sum1 = sum(j['Rating'])
             meanRating = sum1 / length
             meanRating = round(meanRating, 1)
             j['meanRating'] = meanRating
@@ -15,7 +15,7 @@ def meanRating(services):
     return services
 
 def getServices(name):
-    cursor = db.Services.find({'type':name})
+    cursor = db.Services.find({'Type':name})
     services = []
     for i in cursor:
         services.append(i)
@@ -29,7 +29,7 @@ def getInfo(name, id_):
             return i
 
 def updateRating(name, id_, rating):
-    alist = db.Services.find_one({'type': name, 'id_': int(id_)}).get('rating')
+    alist = db.Services.find_one({'Type': name, 'id_': int(id_)}).get('Rating')
     alist.append(int(rating))
     db.Services.update_one(
         {'type': name, 'id_': int(id_)},
