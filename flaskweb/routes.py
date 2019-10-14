@@ -24,13 +24,8 @@ def about():
 @app.route('/services/<string:service_name>')
 def serviceDisplay(service_name):
     data = getServices(service_name)
-    if current_user.is_authenticated:
-        email = current_user.email
-        favoList = db.user.find_one({"email": email}).get("favorite")
-    else:
-        favoList=[]
     return render_template('serviceDisplay.html', title='Service Display',
-                           data=data, service_name=service_name, favoList=favoList)
+                           data=data, service_name=service_name)
 
 @app.route('/services/<service_name>/<service_id>')
 @login_required
@@ -42,28 +37,17 @@ def addFavorite(service_name, service_id):
         flash('You have add one favorite successfully!', 'success')
     elif result == 'fail':
         flash('You have already favorited this service.', 'info')
-    if current_user.is_authenticated:
-        email = current_user.email
-        favoList = db.user.find_one({"email": email}).get("favorite")
-    else:
-        favoList=[]
     return render_template('serviceDisplay.html', title='Service Display',
-                           data=data, service_name=service_name, favoList=favoList)
+                           data=data, service_name=service_name)
 
 @app.route('/searchDisplay/<keyword>', methods=['GET', 'POST'])
 def searchDisplay(keyword):
     form = SearchForm()
     data = Search(keyword)
-    if current_user.is_authenticated:
-        email = current_user.email
-        favoList = db.user.find_one({"email": email}).get("favorite")
-    else:
-        favoList=[]
     if form.validate_on_submit():
         keyword = form.search.data
         return redirect(url_for('searchDisplay', keyword=keyword))
-    return render_template('searchDisplay.html', title='Search Result', data=data,
-                           form=form, keyword=keyword, favoList=favoList)
+    return render_template('searchDisplay.html', title='Search Result', data=data, form=form, keyword=keyword)
 
 @app.route('/searchDisplay/<keyword>/<service_name>/<service_id>', methods=['GET', 'POST'])
 @login_required
@@ -76,16 +60,10 @@ def addFavoriteSearch(keyword, service_name, service_id):
         flash('You have add one favorite successfully!', 'success')
     else:
         flash('You have already favorited this service.', 'info')
-    if current_user.is_authenticated:
-        email = current_user.email
-        favoList = db.user.find_one({"email": email}).get("favorite")
-    else:
-        favoList=[]
     if form.validate_on_submit():
         keyword = form.search.data
         return redirect(url_for('searchDisplay', keyword=keyword))
-    return render_template('searchDisplay.html', title='Search Result', keyword=keyword,
-                           data=data, form=form, favoList=favoList)
+    return render_template('searchDisplay.html', title='Search Result', keyword=keyword, data=data, form=form)
 
 @app.route('/services/serviceDisplay/detailedInfo/<string:servicename>/<string:service_id>',
            methods=['GET', 'POST'])

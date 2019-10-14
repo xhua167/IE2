@@ -10,9 +10,9 @@
                 {% if i['What'] != 'Unknown' %}
                 <div class="row">
                     <div class="col">
-                        <p><b>{{ i['Name'] }} ({{ i['Type'] }})</b></p>
+                        <p><b>{{ i['Name'] }} ({{ i['type'] }})</b></p>
                         <p><b>Description</b>: {{ i['What'] }}</p>
-                        <a href="{{ url_for('detailedInfo', service_id=i['id_'], servicename=i['Type']) }}" class="btn btn-info">More</a>
+                        <a href="{{ url_for('detailedInfo', service_id=i['id_'], servicename=i['type']) }}" class="btn btn-info">More Information</a>
                     </div>
                 </div>
 
