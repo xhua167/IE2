@@ -12,7 +12,8 @@ app.config['BASIC_AUTH_PASSWORD'] = 'help1024'
 app.config['BASIC_AUTH_FORCE'] = True
 basic_auth = BasicAuth(app)
 
-uri = 'mongodb://lenomongo:kzUR8Q9x2b0CSbxp8A0lpVpXPIl07VEnwhCDlrKZLv7imd7Ik0B6O5tpZk6khUemBbDqH8OgdTaAxQxFdtrRdw==@lenomongo.documents.azure.com:10255/?ssl=true&replicaSet=globaldb'
+uri = 'mongodb://lenomongo726:cN1mZVS8a0fIOZVm4dvZwGCmpgnWNeah0YSsFZ8DuyTwmpJWC9Z7k05WVvEPSvhk26Lt0QnBlP4P7lxofJ7Rzw==@lenomongo726.documents.azure.com:10255/?ssl=true&replicaSet=globaldb'
+
 client = MongoClient(uri)
 db = client.IE
 bcrypt = Bcrypt(app)
